@@ -6,18 +6,18 @@ This project explores a core challenge in medical imaging: getting an AI model t
 
 We simulate this problem using Fashion-MNIST (a dataset of clothing images) as a stand-in for two imaging modalities:
 
-- **Domain A** — clean, unmodified images, basically a well-calibrated scanner
-- **Domain B** — heavily augmented images with contrast shifts, 45-degree rotation, and Gaussian noise, basically like a different, noisier modality
+- Domain A — clean, unmodified images, basically a well-calibrated scanner
+- Domain B — heavily augmented images with contrast shifts, 45-degree rotation, and Gaussian noise, basically like a different, noisier modality
 
 The model's job is to learn that a boot in Domain A and a boot in Domain B are the same thing despite looking quite different.
 
 ## How it works
 
-1. **Feature extraction** — A CNN maps each image down to a compact 128 number fingerprint (an embedding). Images that represent the same class should produce similar fingerprints, regardless of which domain they came from.
+1. Feature extraction — A CNN maps each image down to a compact 128 number fingerprint (an embedding). Images that represent the same class should produce similar fingerprints, regardless of which domain they came from.
 
-2. **Triplet training** — We train using triplet loss. For each image in Domain A, we show the model a matching image from Domain B (same class) and a non-matching one (different class). The model is penalised whenever the non-match is closer in embedding space than the match.
+2. Triplet training — We train using triplet loss. For each image in Domain A, we show the model a matching image from Domain B (same class) and a non-matching one (different class). The model is penalised whenever the non-match is closer in embedding space than the match.
 
-3. **Validation** — After training, we extract all embeddings, compress them into 2D using PCA, and measure Top-1 retrieval accuracy: for each Domain A image, does its nearest neighbour in Domain B space belong to the same class?
+3. Validation — After training, we extract all embeddings, compress them into 2D using PCA, and measure Top-1 retrieval accuracy: for each Domain A image, does its nearest neighbour in Domain B space belong to the same class?
 
 ## Why it matters
 
